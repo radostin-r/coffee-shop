@@ -1,0 +1,21 @@
+version: '3.10'
+services:
+  app:
+    build: .
+    container_name: app
+    env_file: .env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    volumes:
+      - ./entrypoint.sh:/app/entrypoint.sh
+
+  db:
+    image: postgres:15.3
+    container_name: db
+    env_file: .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
